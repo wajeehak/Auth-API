@@ -23,6 +23,7 @@ def create_access_token(data: dict, expires_delta: timedelta = timedelta(minutes
 
 @app.post("/login")
 def login(credentials: dict = Body(...)):
+    print("🔵 /login endpoint hit")
     username = credentials.get("username")
     password = credentials.get("password")
 
