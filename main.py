@@ -33,13 +33,3 @@ def login(credentials: dict = Body(...)):
 
     token = create_access_token({"username": username})
     return {"success": True, "token": token}
-
-@app.get("/verify")
-def verify_token(token: str):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return {"valid": True, "user": payload.get("username")}
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail="Token expired")
-    except jwt.InvalidTokenError:
-        raise HTTPException(status_code=401, detail="Invalid token")
